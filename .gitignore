@@ -1,2 +1,4 @@
 venv
 doctrees
+docs/_sources
+docs/_static
