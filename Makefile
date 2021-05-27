@@ -5,6 +5,7 @@
 # from the environment for the first two.
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
+SITEMAPGEN    ?= ./sitemapgen.sh
 SOURCEDIR     = source
 BUILDDIR      = build
 
@@ -18,3 +19,4 @@ help:
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	@$(SITEMAPGEN)

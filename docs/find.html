@@ -1,0 +1,185 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta content="Linux find 命令的使用详解。find 命令可以从指定的目录中列出匹 配的文件。" name="description" />
+
+    <title>find &#8212; Linux 命令指北</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/translations.js"></script>
+
+    
+    
+     
+        <script src="_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script src="_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script src="_static/cloud.js"></script>
+    
+
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="Linux 命令指北" href="index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="index.html" title="Linux 命令指北"
+             accesskey="P">上一页</a> &nbsp; &nbsp;</li>
+    <li><a href="index.html">Linux 命令指北</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">find</a></li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="index-0"></span><section id="find">
+<h1>find<a class="headerlink" href="#find" title="永久链接至标题">¶</a></h1>
+<p>find 命令可以从指定的目录中列出匹配的文件。</p>
+<p>语法：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>find [-H] [-L] [-P] [-D DEBUGOPTIONS] [-OLEVEL] [FILE...] [EXPRESSION]
+</pre></div>
+</div>
+<section id="id1">
+<h2>通过匹配文件名来查找文件<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>这是 find 最常用的方式之一， 该方式通过 <code class="docutils literal notranslate"><span class="pre">-name</span></code> 参数来匹配文件名：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find . -name <span class="s1">&#39;*.txt&#39;</span>
+</pre></div>
+</div>
+<p>上面的命令是查询当前目录下所有 .txt 后缀的文件。其中 <code class="docutils literal notranslate"><span class="pre">.</span></code> 表示当前目录，也可以
+是其他任意指定的目录，例如 <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">/home</span></code> 等。</p>
+<p>上面的命令中的 <code class="docutils literal notranslate"><span class="pre">*.txt</span></code> 是用来匹配所有 .txt 后缀文件的表达式。<code class="docutils literal notranslate"><span class="pre">-name</span></code> 参数中
+的 <code class="docutils literal notranslate"><span class="pre">?</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code> 有特殊的含义：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">?</span></code>: 匹配单个任意字符。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code>: 匹配任意个字符。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[]</span></code>: 匹配括号中包含的任意一个字符。</p></li>
+</ul>
+<p>什么意思呢？例如有三个文件 <code class="docutils literal notranslate"><span class="pre">.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">a.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">abc.txt</span></code>, 使用 <code class="docutils literal notranslate"><span class="pre">*.txt</span></code> 可
+以把这三个都匹配上，而使用 <code class="docutils literal notranslate"><span class="pre">?.txt</span></code> 和 <code class="docutils literal notranslate"><span class="pre">[abc].txt</span></code> 都只能匹配上 <code class="docutils literal notranslate"><span class="pre">a.txt</span></code> 。</p>
+<p>另外需要注意的是， <code class="docutils literal notranslate"><span class="pre">*.txt</span></code> 务必要用单引号包起来（ <code class="docutils literal notranslate"><span class="pre">'*.txt'</span></code> ）才能作为
+<code class="docutils literal notranslate"><span class="pre">-name</span></code> 参数的值使用。因为 <code class="docutils literal notranslate"><span class="pre">*</span></code> 在 bash 中也被作为特殊字符对待，所以加上单引
+号可以避免 bash 截胡。</p>
+</section>
+<section id="id2">
+<h2>通过日期来查找文件<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
+    <h3><a href="index.html">Page contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">find</a><ul>
+<li><a class="reference internal" href="#id1">通过匹配文件名来查找文件</a></li>
+<li><a class="reference internal" href="#id2">通过日期来查找文件</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="index.html"
+                          title="Previous page">&larr; Linux 命令指北</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/find.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="index.html" title="Linux 命令指北"
+             >上一页</a> &nbsp; &nbsp;</li>
+    <li><a href="index.html">Linux 命令指北</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">find</a></li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, linuxcmd.wiki.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>
