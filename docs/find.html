@@ -67,26 +67,38 @@
             
   <span class="target" id="index-0"></span><section id="find">
 <h1>find<a class="headerlink" href="#find" title="永久链接至标题">¶</a></h1>
-<p>find 命令可以从指定的目录中列出匹配的文件。</p>
+<p>find 命令，属于 GNU 的 Findutils 项目，其可以从指定的目录中列出匹配的文件。</p>
 <section id="id1">
-<h2>使用方式<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<h2>语法<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <p>find 命令的基本语法如下：</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>find [PATH...] [EXPRESSION]
 </pre></div>
 </div>
-<p>其中 <code class="docutils literal notranslate"><span class="pre">PATH</span></code> 可以一次有多个； <code class="docutils literal notranslate"><span class="pre">EXPRESSION</span></code> （表达式）有这么几种类型：</p>
+<section id="path">
+<h3>PATH 参数<a class="headerlink" href="#path" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">PATH</span></code> 参数同时可以有多个，例如：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ find /usr/lib /usr/lib64
+</pre></div>
+</div>
+<p>上面的命令会列出 <code class="docutils literal notranslate"><span class="pre">/usr/lib</span></code> 和 <code class="docutils literal notranslate"><span class="pre">/usr/lib64</span></code> 中所有的文件。</p>
+</section>
+<section id="expression">
+<h3>EXPRESSION 参数<a class="headerlink" href="#expression" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">EXPRESSION</span></code> （表达式）有这么几种类型：</p>
 <dl>
-<dt><code class="docutils literal notranslate"><span class="pre">Global</span> <span class="pre">options</span></code></dt><dd><p>全局选项表达式，例如 <code class="docutils literal notranslate"><span class="pre">-depth</span></code>, <code class="docutils literal notranslate"><span class="pre">-maxdepth</span></code>, <code class="docutils literal notranslate"><span class="pre">-mindepth</span></code> 等。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">Global</span> <span class="pre">options</span></code></dt><dd><p>全局选项表达式，例如 <code class="docutils literal notranslate"><span class="pre">-depth</span></code>, <code class="docutils literal notranslate"><span class="pre">-maxdepth</span></code>, <code class="docutils literal notranslate"><span class="pre">-mindepth</span></code> 等参数构成的
+表达式。</p>
 <p><strong>注意</strong> ：全局参数建议放在所有其它参数的前面，因为它影响的是整个表达式。否
 则会出现警告提示：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ find / -type d -maxdepth <span class="m">2</span>
 find: warning: you have specified the global option -maxdepth after the argument -type, but global options are not positional, i.e., -maxdepth affects tests specified before it as well as those specified after it.  Please specify global options before other arguments.
 </pre></div>
 </div>
-<p>上面的 find 命令正确的写法应该是把全局参数 <code class="docutils literal notranslate"><span class="pre">-maxdepth</span> <span class="pre">2</span></code> 需要放在
-<code class="docutils literal notranslate"><span class="pre">--type</span> <span class="pre">d</span></code> 之前。</p>
+<p>上面的命令正确的写法应该是把全局参数 <code class="docutils literal notranslate"><span class="pre">-maxdepth</span> <span class="pre">2</span></code> 需要放在 <code class="docutils literal notranslate"><span class="pre">--type</span> <span class="pre">d</span></code>
+之前。</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Operators</span></code></dt><dd><p>运算符表达式，例如 <code class="docutils literal notranslate"><span class="pre">-a</span></code> , <code class="docutils literal notranslate"><span class="pre">-o</span></code>, <code class="docutils literal notranslate"><span class="pre">-not</span></code> 等逻辑运算相关参数。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">Operators</span></code></dt><dd><p>运算符表达式，例如 <code class="docutils literal notranslate"><span class="pre">-a</span></code> , <code class="docutils literal notranslate"><span class="pre">-o</span></code>, <code class="docutils literal notranslate"><span class="pre">-not</span></code> 等逻辑运算相关参数构成的表达式
+。</p>
 <p>通常我们使用 find 的时候会连续使用多个表达式，用空格分隔，其实这种情况表达
 式之间暗含了 <code class="docutils literal notranslate"><span class="pre">-a</span></code> 参数（代表 and 运算），例如：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ find / -type f -perm <span class="m">755</span>
@@ -98,29 +110,32 @@ find: warning: you have specified the global option -maxdepth after the argument
 </pre></div>
 </div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Tests</span></code></dt><dd><p>条件表达式，例如 <code class="docutils literal notranslate"><span class="pre">-type</span></code>, <code class="docutils literal notranslate"><span class="pre">-name</span></code>, <code class="docutils literal notranslate"><span class="pre">-perm</span></code> 等。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">Tests</span></code></dt><dd><p>条件表达式，例如 <code class="docutils literal notranslate"><span class="pre">-type</span></code>, <code class="docutils literal notranslate"><span class="pre">-name</span></code>, <code class="docutils literal notranslate"><span class="pre">-perm</span></code> 等参数构成的表达式。</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Actions</span></code></dt><dd><p>操作表达式，例如 <code class="docutils literal notranslate"><span class="pre">-delete</span></code>, <code class="docutils literal notranslate"><span class="pre">-printf</span></code>, <code class="docutils literal notranslate"><span class="pre">-exec</span></code> 等。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">Actions</span></code></dt><dd><p>操作表达式，例如 <code class="docutils literal notranslate"><span class="pre">-delete</span></code>, <code class="docutils literal notranslate"><span class="pre">-printf</span></code>, <code class="docutils literal notranslate"><span class="pre">-exec</span></code> 等参数构成的表达式。</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">Positional</span> <span class="pre">options</span></code></dt><dd><p>位置选项表达式，这个不太常用，所以这里就不探究了，有兴趣可以参看 <code class="docutils literal notranslate"><span class="pre">man</span>
 <span class="pre">find</span></code> 。</p>
 </dd>
 </dl>
 </section>
+</section>
 <section id="id2">
-<h2>实践案例<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>下面通过一些具体的案例来看下 find 的实际使用。</p>
+<h2>案例<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>下面通过一些具体的案例来看下 find 参数的实际使用。</p>
 <section id="id3">
 <h3>通过匹配文件名来查找文件<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
-<p>这是 find 最常用的方式之一， 该方式通过 <code class="docutils literal notranslate"><span class="pre">-name</span></code> 参数（属于上述 <code class="docutils literal notranslate"><span class="pre">Tests</span></code> 类型
-表达式）来匹配文件名：</p>
+<p>查询当前目录下所有 .txt 后缀的文件：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ find . -type f -name <span class="s1">&#39;*.txt&#39;</span>
 </pre></div>
 </div>
-<p>上面的命令是查询当前目录下所有 .txt 后缀的文件。其中 <code class="docutils literal notranslate"><span class="pre">.</span></code> 表示当前目录，也可以
-是其他任意指定的目录，例如 <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">/home</span></code> 等。</p>
-<p>上面的命令中的 <code class="docutils literal notranslate"><span class="pre">*.txt</span></code> 是用来匹配所有 .txt 后缀文件的表达式。<code class="docutils literal notranslate"><span class="pre">-name</span></code> 参数中
-的 <code class="docutils literal notranslate"><span class="pre">?</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code> 有特殊的含义：</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">.</span></code></dt><dd><p>表示当前目录，也可以是其他任意指定的目录，例如 <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">/home</span></code> 等。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-type</span> <span class="pre">f</span></code></dt><dd><p>表示匹配文本文件。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-name</span> <span class="pre">*.txt</span></code></dt><dd><p>用来匹配所有 .txt 后缀文件的表达式。 <code class="docutils literal notranslate"><span class="pre">-name</span></code> 参数中的 <code class="docutils literal notranslate"><span class="pre">?</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>,
+<code class="docutils literal notranslate"><span class="pre">[]</span></code> 有特殊的含义：</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">?</span></code>: 匹配单个任意字符。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">*</span></code>: 匹配任意个字符。</p></li>
@@ -131,6 +146,8 @@ find: warning: you have specified the global option -maxdepth after the argument
 <p>另外需要注意的是， <code class="docutils literal notranslate"><span class="pre">*.txt</span></code> 务必要用单引号包起来（ <code class="docutils literal notranslate"><span class="pre">'*.txt'</span></code> ）才能作为
 <code class="docutils literal notranslate"><span class="pre">-name</span></code> 参数的值使用。因为 <code class="docutils literal notranslate"><span class="pre">*</span></code> 在 bash 中也被作为特殊字符对待，所以加上单引
 号可以避免 bash 截胡。</p>
+</dd>
+</dl>
 </section>
 </section>
 </section>
@@ -145,8 +162,12 @@ find: warning: you have specified the global option -maxdepth after the argument
     <h3><a href="index.html">Page contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">find</a><ul>
-<li><a class="reference internal" href="#id1">使用方式</a></li>
-<li><a class="reference internal" href="#id2">实践案例</a><ul>
+<li><a class="reference internal" href="#id1">语法</a><ul>
+<li><a class="reference internal" href="#path">PATH 参数</a></li>
+<li><a class="reference internal" href="#expression">EXPRESSION 参数</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">案例</a><ul>
 <li><a class="reference internal" href="#id3">通过匹配文件名来查找文件</a></li>
 </ul>
 </li>
