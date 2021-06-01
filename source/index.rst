@@ -8,7 +8,7 @@ Linux 命令列表
 ^^^^^^^^^^^^
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    find
 
@@ -18,4 +18,4 @@ Linux 命令列表
 
 * :ref:`索引（A-Z 排序） <genindex>`
 .. * :ref:`modindex`
-* :ref:`search`
+.. * :ref:`search`
