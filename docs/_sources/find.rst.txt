@@ -26,7 +26,7 @@ PATH 参数
 
 .. code-block:: bash
 
-    $ find /usr/lib /usr/lib64 
+    $ find /usr/lib /usr/lib64
 
 上面的命令会列出 ``/usr/lib`` 和 ``/usr/lib64`` 中所有的文件。
 

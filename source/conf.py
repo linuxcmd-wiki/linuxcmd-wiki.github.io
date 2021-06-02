@@ -48,12 +48,25 @@ exclude_patterns = []
 
 # -- Options for HTML output -------------------------------------------------
 
+# The name for this set of Sphinx documents.
+# "<project> v<release> documentation" by default.
+html_title = 'Linux 命令指北'
+
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
 html_theme = 'cloud'
 
-html_title = 'Linux 命令指北'
+# Theme options are theme-specific and customize the look and feel of a theme
+# further.  For a list of options available for each theme, see the
+# documentation.
+html_theme_options = {
+    'googleanalytics_id': 'G-V6EVW0T7Y3',
+}
+
+# If not None, a 'Last updated on:' timestamp is inserted at every page
+# bottom, using the given strftime format.
+# The empty string is equivalent to '%b %d, %Y'.
+html_last_updated_fmt = ''
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
