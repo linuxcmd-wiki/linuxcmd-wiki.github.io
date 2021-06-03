@@ -7,8 +7,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta content="Linux dig 命令使用详解。dig 命令可以从指定的目录中列出匹配 的文件。" name="description" />
 
-    <title>Linux 命令指北 &#8212; Linux 命令指北</title>
+    <title>dig &#8212; Linux 命令指北</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
@@ -37,7 +38,8 @@
 
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="next" title="dig" href="dig.html" />
+    <link rel="next" title="find" href="find.html" />
+    <link rel="prev" title="Linux 命令指北" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V6EVW0T7Y3"></script>
@@ -58,11 +60,14 @@
           <a href="genindex.html" title="总目录"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="dig.html" title="dig"
+          <a href="find.html" title="find"
              accesskey="N">下一页</a> &nbsp; &nbsp;</li>
-    <li><a href="#">Linux 命令指北</a> &#187;</li>
+        <li class="right" >
+          <a href="index.html" title="Linux 命令指北"
+             accesskey="P">上一页</a> &nbsp; &nbsp;</li>
+    <li><a href="index.html">Linux 命令指北</a> &#187;</li>
 
-        <li class="nav-item nav-item-this"><a href="">Linux 命令指北</a></li> 
+        <li class="nav-item nav-item-this"><a href="">dig</a></li> 
       </ul>
     </div>
     </div>
@@ -73,47 +78,30 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="linux">
-<h1>Linux 命令指北<a class="headerlink" href="#linux" title="永久链接至标题">¶</a></h1>
+  <span class="target" id="index-0"></span><section id="dig">
+<h1>dig<a class="headerlink" href="#dig" title="永久链接至标题">¶</a></h1>
+<p>dig 是域名查询工具，属于 ISC <a class="reference external" href="https://www.isc.org/bind/">BIND</a> 项目中的一员。</p>
 <section id="id1">
-<h2>Linux 命令列表<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<h2>语法<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>dig 基本语法如下：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dig name [@server] [type]
+</pre></div>
+</div>
+<dl>
+<dt>name</dt><dd><p>要解析的域名，例如 www.example.com 。</p>
+</dd>
+<dt>server</dt><dd><p>解析域名的服务器，例如 114.114.114.114 (114 DNS), 8.8.8.8 (Google DNS),
+1.1.1.1 (Cloudflare DNS) 等。</p>
+<p>server 是可选参数，如果不指定的话，默认会读取系统本地的
+<code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code> 文件中设定的 nameserver 的值，将域名解析请求发送给它。</p>
+</dd>
+<dt>type</dt><dd><p>域名解析请求的类型，例如 A, TXT, MX 等。</p>
+<p>type 是可选参数，如果不指定的话，默认解析请求 A 类型的记录。</p>
+</dd>
+</dl>
+</section>
 <section id="id2">
-<h3>域名相关命令<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="dig.html">dig</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dig.html#id1">语法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dig.html#id2">案例</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</section>
-<section id="id3">
-<h3>文件相关命令<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="find.html">find</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="find.html#id1">语法</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="find.html#path">PATH 参数</a></li>
-<li class="toctree-l3"><a class="reference internal" href="find.html#expression">EXPRESSION 参数</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="find.html#id2">案例</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="find.html#id3">通过匹配文件名来查找文件</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</section>
-</section>
-<section id="id4">
-<h2>归档<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">索引（A-Z 排序）</span></a></p></li>
-</ul>
+<h2>案例<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 </section>
 </section>
 
@@ -124,29 +112,30 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
-    <h3><a href="#">Page contents</a></h3>
+    <h3><a href="index.html">Page contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">Linux 命令指北</a><ul>
-<li><a class="reference internal" href="#id1">Linux 命令列表</a><ul>
-<li><a class="reference internal" href="#id2">域名相关命令</a></li>
-<li><a class="reference internal" href="#id3">文件相关命令</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id4">归档</a></li>
+<li><a class="reference internal" href="#">dig</a><ul>
+<li><a class="reference internal" href="#id1">语法</a></li>
+<li><a class="reference internal" href="#id2">案例</a></li>
 </ul>
 </li>
 </ul>
 
   </div>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="index.html"
+                          title="Previous page">&larr; Linux 命令指北</a></p>
+  </div>
   <div class="sphinxnext">
     <h4>Next page</h4>
-    <p class="topless"><a href="dig.html"
-                          title="Next page">&rarr; dig</a></p>
+    <p class="topless"><a href="find.html"
+                          title="Next page">&rarr; find</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>本页</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
+      <li><a href="_sources/dig.rst.txt"
             rel="nofollow">显示源代码</a></li>
     </ul>
    </div>
@@ -190,11 +179,14 @@
           <a href="genindex.html" title="总目录"
              >索引</a></li>
         <li class="right" >
-          <a href="dig.html" title="dig"
+          <a href="find.html" title="find"
              >下一页</a> &nbsp; &nbsp;</li>
-    <li><a href="#">Linux 命令指北</a> &#187;</li>
+        <li class="right" >
+          <a href="index.html" title="Linux 命令指北"
+             >上一页</a> &nbsp; &nbsp;</li>
+    <li><a href="index.html">Linux 命令指北</a> &#187;</li>
 
-        <li class="nav-item nav-item-this"><a href="">Linux 命令指北</a></li> 
+        <li class="nav-item nav-item-this"><a href="">dig</a></li> 
       </ul>
     </div>
     </div>

@@ -8,7 +8,9 @@
 find
 ====
 
-find 命令，属于 GNU 的 Findutils 项目，其可以从指定的目录中列出匹配的文件。
+find 命令是 GNU `Findutils`_ 项目中的一员，其可以从指定的目录中列出匹配的文件。
+
+.. _Findutils: https://www.gnu.org/software/findutils/
 
 语法
 ----
