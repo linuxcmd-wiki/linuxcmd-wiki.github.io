@@ -88,20 +88,86 @@
 </pre></div>
 </div>
 <dl>
-<dt>name</dt><dd><p>要解析的域名，例如 www.example.com 。</p>
+<dt>name</dt><dd><p>要查询的域名，例如 www.example.com 。</p>
 </dd>
-<dt>server</dt><dd><p>解析域名的服务器，例如 114.114.114.114 (114 DNS), 8.8.8.8 (Google DNS),
-1.1.1.1 (Cloudflare DNS) 等。</p>
+<dt>server</dt><dd><p>解析域名的服务器（nameserver），例如 114.114.114.114（114 DNS），8.8.8.8
+（Google DNS），1.1.1.1 （Cloudflare DNS）等。</p>
 <p>server 是可选参数，如果不指定的话，默认会读取系统本地的
 <code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code> 文件中设定的 nameserver 的值，将域名解析请求发送给它。</p>
 </dd>
-<dt>type</dt><dd><p>域名解析请求的类型，例如 A, TXT, MX 等。</p>
-<p>type 是可选参数，如果不指定的话，默认解析请求 A 类型的记录。</p>
+<dt>type</dt><dd><p>域名查询请求的类型，例如 A, TXT, MX 等。</p>
+<p>type 是可选参数，如果不指定的话，默认查询的是 A 类型的记录。</p>
 </dd>
 </dl>
 </section>
 <section id="id2">
-<h2>案例<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<h2>返回内容解读<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ dig linuxcmd.wiki
+
+<span class="p">;</span> &lt;&lt;&gt;&gt; DiG <span class="m">9</span>.11.4 &lt;&lt;&gt;&gt; linuxcmd.wiki
+<span class="p">;;</span> global options: +cmd
+<span class="p">;;</span> Got answer:
+<span class="p">;;</span> -&gt;&gt;HEADER<span class="s">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span class="m">23305</span>
+<span class="p">;;</span> flags: qr rd ra<span class="p">;</span> QUERY: <span class="m">1</span>, ANSWER: <span class="m">2</span>, AUTHORITY: <span class="m">0</span>, ADDITIONAL: <span class="m">0</span>
+
+<span class="p">;;</span> QUESTION SECTION:
+<span class="p">;</span>linuxcmd.wiki.                 IN      A
+
+<span class="p">;;</span> ANSWER SECTION:
+linuxcmd.wiki.          <span class="m">300</span>     IN      A       <span class="m">104</span>.21.42.57
+linuxcmd.wiki.          <span class="m">300</span>     IN      A       <span class="m">172</span>.67.201.88
+
+<span class="p">;;</span> Query time: <span class="m">302</span> msec
+<span class="p">;;</span> SERVER: <span class="m">183</span>.60.83.19#53<span class="o">(</span><span class="m">183</span>.60.83.19<span class="o">)</span>
+<span class="p">;;</span> WHEN: Fri Jun <span class="m">04</span> <span class="m">17</span>:17:29 CST <span class="m">2021</span>
+<span class="p">;;</span> MSG SIZE  rcvd: <span class="m">63</span>
+</pre></div>
+</div>
+<p>上面是一个完整的 dig 命令返回结果的内容，下面我通过注释的方式来解读它们都表示什
+么含义：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ dig linuxcmd.wiki
+
+dig 的版本
+<span class="p">;</span> &lt;&lt;&gt;&gt; DiG <span class="m">9</span>.11.4 &lt;&lt;&gt;&gt; linuxcmd.wiki
+dig 命令中的全局参数设定
+<span class="p">;;</span> global options: +cmd
+<span class="p">;;</span> Got answer:
+域名查询的请求头
+opcode 表示请求的类型，这里的 QUERY 是指标准查询请求，其它的类型有 IQUERY <span class="o">(</span>反向查询请求），STATUS（服务器状态查询请求）
+status 表示返回的状态，0 <span class="o">(</span>NO ERROR<span class="o">)</span> 表示没有问题，其它的返回状态还有 <span class="m">1</span> <span class="o">(</span>FORMAT ERROR<span class="o">)</span>，2 <span class="o">(</span>SERVER FAILURE<span class="o">)</span>，3 <span class="o">(</span>NAME ERROR<span class="o">)</span>，4 <span class="o">(</span>NOT IMPLEMENTED<span class="o">)</span>，5 <span class="o">(</span>REFUSED<span class="o">)</span>
+id 是一个 <span class="m">16</span> bit 长度的识别号，由 dig 发送请求的时候随机产生，在收到返回结果的时候会校验是否一致
+<span class="p">;;</span> -&gt;&gt;HEADER<span class="s">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span class="m">23305</span>
+返回结果有 <span class="m">1</span> 个 QUESTION SECTION，两个 ANSWER SECTION，没有 AUTHORITY SECTION 和 ADDITIONAL SECTION
+<span class="p">;;</span> flags: qr rd ra<span class="p">;</span> QUERY: <span class="m">1</span>, ANSWER: <span class="m">2</span>, AUTHORITY: <span class="m">0</span>, ADDITIONAL: <span class="m">0</span>
+
+请求部分
+<span class="p">;;</span> QUESTION SECTION:
+查询的域名是 linuxcmd.wiki，CLASS 是 IN <span class="o">(</span>Internet<span class="o">)</span>，TYPE 是 A
+<span class="p">;</span>linuxcmd.wiki.                 IN      A
+
+返回部分，有两条记录
+<span class="p">;;</span> ANSWER SECTION:
+第一条记录，TTL 是 <span class="m">300</span>，CLASS 是 IN <span class="o">(</span>Internet<span class="o">)</span>，TYPE 是 A，结果是 <span class="m">104</span>.21.42.57
+linuxcmd.wiki.          <span class="m">300</span>     IN      A       <span class="m">104</span>.21.42.57
+第二条记录，TTL 是 <span class="m">300</span>，CLASS 是 IN <span class="o">(</span>Internet<span class="o">)</span>，TYPE 是 A，结果是 <span class="m">172</span>.67.201.88
+linuxcmd.wiki.          <span class="m">300</span>     IN      A       <span class="m">172</span>.67.201.88
+
+<span class="p">;;</span> Query time: <span class="m">302</span> msec
+<span class="p">;;</span> SERVER: <span class="m">183</span>.60.83.19#53<span class="o">(</span><span class="m">183</span>.60.83.19<span class="o">)</span>
+<span class="p">;;</span> WHEN: Fri Jun <span class="m">04</span> <span class="m">17</span>:17:29 CST <span class="m">2021</span>
+<span class="p">;;</span> MSG SIZE  rcvd: <span class="m">63</span>
+</pre></div>
+</div>
+</section>
+<section id="nameserver">
+<h2>通过指定的 nameserver 解析域名<a class="headerlink" href="#nameserver" title="永久链接至标题">¶</a></h2>
+<p>通过加上 <code class="docutils literal notranslate"><span class="pre">&#64;server</span></code> 参数指定 nameserver，否则默认将解析请求发送给系统本地
+<code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code> 文件中设定的 nameserver。</p>
+<p>下面的命令将解析 <code class="docutils literal notranslate"><span class="pre">linuxcmd.wiki</span></code> 的请求发送给 <code class="docutils literal notranslate"><span class="pre">8.8.8.8</span></code> 这个 nameserver 来处
+理：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ dig linuxcmd.wiki @8.8.8.8
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -116,7 +182,8 @@
     <ul>
 <li><a class="reference internal" href="#">dig</a><ul>
 <li><a class="reference internal" href="#id1">语法</a></li>
-<li><a class="reference internal" href="#id2">案例</a></li>
+<li><a class="reference internal" href="#id2">返回内容解读</a></li>
+<li><a class="reference internal" href="#nameserver">通过指定的 nameserver 解析域名</a></li>
 </ul>
 </li>
 </ul>
@@ -193,7 +260,7 @@
 
     <div class="footer" role="contentinfo">
         &#169; 版权所有 2021, linuxcmd.wiki.
-      最后更新于 2021 年 06 月 03 日.
+      最后更新于 2021 年 06 月 04 日.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
     </div>
   </body>
