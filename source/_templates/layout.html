@@ -1,5 +1,56 @@
 {% extends "cloud/layout.html" %}
 
+{%- macro relbar1() %}
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>{{ _('Navigation') }}</h3>
+      <ul>
+        {%- if pagename != "search" and builder != "singlehtml" %}
+        <li id="searchbox" class="right" style="display: inline-block" role="search">
+            <form class="search" action="{{ pathto('search') }}" method="get">
+              <!--<div><input type="text" name="q" placeholder="search docs" /></div>-->
+              <input type="text" name="q" placeholder="&#xF002;" style="font-family:FontAwesome, Ariel" />
+              <!--<div><input type="submit" value="{{ _('Go') }}" /></div>-->
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </li>
+        <script type="text/javascript">$('#searchbox').show(0);</script>
+        {%- endif %}
+        <li><a href="/" titile="主页"><i class="fa fa-home fa-lg"></i></a></li>
+        <li><a href="https://github.com/linuxcmd-wiki" title="Github"><i class="fa fa-github fa-lg"></i></a></li>
+        <li><a href="https://stackexchange.com/users/21817943/linuxcmd-wiki?tab=accounts" title="StackExchange"><i class="fa fa-stack-exchange fa-lg"></i></a></li>
+        <li class="nav-item nav-item-0"><a href="{{ pathto(root_doc)|e }}">{{ shorttitle|e }}</a></li>
+        {%- for parent in parents %}
+          <li class="nav-item nav-item-{{ loop.index }}">{{ reldelim1 }}<a href="{{ parent.link|e }}" {% if loop.last %}{{ accesskey("U") }}{% endif %}>{{ parent.title }}</a></li>
+        {%- endfor %}
+        {%- if pagename != "index" %}
+        <li class="nav-item nav-item-this">{{ reldelim1 }}<a href="{{ link|e }}">{{ title }}</a></li>
+        {%- endif %}
+      </ul>
+    </div>
+{%- endmacro %}
+
+{%- macro relbar2() %}
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>{{ _('Navigation') }}</h3>
+      <ul>
+        {%- for rellink in rellinks %}
+        <li class="right" {% if loop.first %}style="margin-right: 10px"{% endif %}>
+          <a href="{{ pathto(rellink[0])|e }}" title="{{ rellink[1]|striptags|e }}"
+             {{ accesskey(rellink[2]) }}>{{ rellink[3] }}</a>
+          {%- if not loop.first %}{{ reldelim2 }}{% endif %}</li>
+        {%- endfor %}
+        <li class="nav-item nav-item-0"><a href="{{ pathto(root_doc)|e }}">{{ shorttitle|e }}</a></li>
+        {%- for parent in parents %}
+          <li class="nav-item nav-item-{{ loop.index }}">{{ reldelim1 }}<a href="{{ parent.link|e }}" {% if loop.last %}{{ accesskey("U") }}{% endif %}>{{ parent.title }}</a></li>
+        {%- endfor %}
+        {%- if pagename != "index" %}
+        <li class="nav-item nav-item-this">{{ reldelim1 }}<a href="{{ link|e }}">{{ title }}</a></li>
+        {%- endif %}
+      </ul>
+    </div>
+{%- endmacro %}
+
 {% block extrahead %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {%- if pagename in ['search', 'searchindex', 'genindex'] %}
@@ -19,6 +70,10 @@
     {%- endif %}
 {%- endblock %}
 
+{%- block relbar1 %}{{ relbar1() }}{% endblock %}
+
+{%- block relbar2 %}{{ relbar2() }}{% endblock %}
+
 {% block footer %}
     <div class="footer" role="contentinfo">
     {%- if show_copyright %}
@@ -28,6 +83,7 @@
         {% trans copyright=copyright|e %}&#169; Copyright {{ copyright }}.{% endtrans %}
       {%- endif %}
     {%- endif %}
+    <br>
     {%- if last_updated %}
       {% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}
     {%- endif %}

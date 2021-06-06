@@ -24,7 +24,7 @@ find 命令的基本语法如下：
 PATH 参数
 ^^^^^^^^^
 
-``PATH`` 参数同时可以有多个，例如：
+PATH 参数同时可以有多个，例如：
 
 .. code-block:: bash
 
@@ -35,22 +35,23 @@ PATH 参数
 EXPRESSION 参数
 ^^^^^^^^^^^^^^^
 
-``EXPRESSION`` （表达式）有这么几种类型：
+EXPRESSION（表达式）有这么几种类型：
 
 ``Global options``
     全局选项表达式，例如 ``-depth``, ``-maxdepth``, ``-mindepth`` 等参数构成的
     表达式。
 
-    **注意** ：全局参数建议放在所有其它参数的前面，因为它影响的是整个表达式。否
-    则会出现警告提示：
+    .. Warning::
+        全局参数建议放在所有其它参数的前面，因为它影响的是整个表达式。否则会出
+        现警告提示：
 
-    .. code-block:: bash
+        .. code-block:: bash
 
-        $ find / -type d -maxdepth 2 
-        find: warning: you have specified the global option -maxdepth after the argument -type, but global options are not positional, i.e., -maxdepth affects tests specified before it as well as those specified after it.  Please specify global options before other arguments.
+            $ find / -type d -maxdepth 2 
+            find: warning: you have specified the global option -maxdepth after the argument -type, but global options are not positional, i.e., -maxdepth affects tests specified before it as well as those specified after it.  Please specify global options before other arguments.
 
-    上面的命令正确的写法应该是把全局参数 ``-maxdepth 2`` 需要放在 ``--type d``
-    之前。
+        上面的命令正确的写法应该是把全局参数 ``-maxdepth 2`` 放在 ``--type d``
+        之前。
 
 ``Operators``
     运算符表达式，例如 ``-a`` , ``-o``, ``-not`` 等逻辑运算相关参数构成的表达式

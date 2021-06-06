@@ -11,8 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 # import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+# import sys # sys.path.insert(0, os.path.abspath('.'))
 
 
 # -- Project information -----------------------------------------------------
@@ -61,6 +60,40 @@ html_theme = 'cloud'
 # documentation.
 html_theme_options = {
     'googleanalytics_id': 'G-V6EVW0T7Y3',
+
+    'max_width': '11.5in',
+    'bodylineheight': '1.25em',
+    'default_layout_text_size': '90%',
+    'minimal_layout_text_size': '80%',
+
+    'sidebarwidth': '1.5in',
+    'sidebar_localtoc_title': '本页内容',
+    'sidebar_prev_title': '上一页',
+    'sidebar_next_title': '下一页',
+
+    'headlinkcolor': '#1a4162',
+    'relbarbgcolor': '#4b6ba9',
+    'sectionbgcolor': '#b9cde4',
+    'relbartextcolor': '#f2f2f2',
+    'relbarlinkcolor': '#f2f2f2',
+    'bodytrimcolor': '#d0d0d0',
+    'headtextcolor': '#000000',
+    'bodyfont': "'Optima', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif",
+    'headfont': "'Optima', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif",
+
+    'link_hover_text_color': '#1a4162',
+    'link_hover_bg_color': '#d0d3d9',
+    'link_hover_trim_color': '',
+    'highlightcolor': '#b9cde4',
+
+    'codebgcolor': '#f2f2f2',
+    'codetextcolor': '#333333',
+    'codetrimcolor': '#aacc99',
+    'codevarfont': '"Andale Mono", monospace',
+    'codeblockfont': '"Andale Mono", monospace',
+
+    'linkcolor': '#4b6ba9',
+    'sidebarlinkcolor': '#4b6ba9',
 }
 
 # If not None, a 'Last updated on:' timestamp is inserted at every page
@@ -72,3 +105,16 @@ html_last_updated_fmt = ''
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+html_css_files = [
+    'cloud-patch.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
+]
+
+html_copy_source = False
+
+html_sidebars = {
+   '**': ['localtoc.html'],
+}
+
+html_show_sourcelink = False

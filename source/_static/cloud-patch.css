@@ -1,0 +1,70 @@
+div.body h1
+{
+    background: url("command-words.png") top center;
+    background-color:transparent;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 1cm 0cm;
+    font-weight: bold;
+    font-size: 200%;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+div.body h2,
+div.body p.rubric,
+.section.emphasize-children > .section > h3,
+.desc-section-1 > .section-header,
+#table-of-contents > h1,
+h1#search-documentation
+{
+    background-color: #5077ab;
+    border: 1px solid rgba(0,0,0,.125);
+    border-width: 0 0 0 6px;
+    color: #ffffff;
+    text-shadow: 0px 0px rgba(0,0,0,.125);
+    font-size: 115%;
+}
+
+div.related a,
+div.related li.right a,
+div.related a:hover,
+div.related li.right a:hover
+{
+    padding: 0.1em 0.5em;
+    font-weight: normal;
+    background-color: transparent;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+#searchbox input[type="text"] {
+    width: 28vw;
+    max-width: 250px;
+    font-size: 1em;
+    padding: 3px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+div.sphinxlocaltoc h3 {
+    font-family: sans-serif;
+    font-variant: small-caps;
+    letter-spacing: 2px;
+}
+
+
+@media only screen and (max-width: 700px),
+       only screen and (max-device-width: 700px),
+       handheld
+{
+    div.sidebar-toggle-group {
+        display: none;
+    }
+    
+    div.related > ul > li:not(.right) + li {
+        display: inline;
+    }
+}
+
