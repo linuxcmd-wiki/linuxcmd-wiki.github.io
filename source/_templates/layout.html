@@ -19,6 +19,7 @@
         <li><a href="/" titile="主页"><i class="fa fa-home fa-lg"></i></a></li>
         <li><a href="https://github.com/linuxcmd-wiki" title="Github"><i class="fa fa-github fa-lg"></i></a></li>
         <li><a href="https://stackexchange.com/users/21817943/linuxcmd-wiki?tab=accounts" title="StackExchange"><i class="fa fa-stack-exchange fa-lg"></i></a></li>
+        <li><a href="mailto: linuxcmd@163.com" title="Email"><i class="fa fa-envelope-o fa-lg"></i></a></li>
         <li class="nav-item nav-item-0"><a href="{{ pathto(root_doc)|e }}">{{ shorttitle|e }}</a></li>
         {%- for parent in parents %}
           <li class="nav-item nav-item-{{ loop.index }}">{{ reldelim1 }}<a href="{{ parent.link|e }}" {% if loop.last %}{{ accesskey("U") }}{% endif %}>{{ parent.title }}</a></li>

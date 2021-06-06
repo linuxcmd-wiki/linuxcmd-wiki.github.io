@@ -39,7 +39,7 @@ div.related li.right a:hover
 }
 
 #searchbox input[type="text"] {
-    width: 28vw;
+    width: 20vw;
     max-width: 250px;
     font-size: 1em;
     padding: 3px 10px;
