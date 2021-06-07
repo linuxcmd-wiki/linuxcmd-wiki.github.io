@@ -52,8 +52,13 @@ div.sphinxlocaltoc h3 {
     font-family: sans-serif;
     font-variant: small-caps;
     letter-spacing: 2px;
+    text-align: center;
 }
 
+div.sphinxsidebar p.logo
+{
+    margin: 0px 40px 0px 30px;
+}
 
 @media only screen and (max-width: 700px),
        only screen and (max-device-width: 700px),
