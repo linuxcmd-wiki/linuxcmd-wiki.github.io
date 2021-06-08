@@ -101,6 +101,8 @@ type
     ;; MSG SIZE  rcvd: 63
 
 .. Seealso::
+    :class: block-title
+
     dig 的调用遵循 DNS 协议 `rfc1035`_ 规范，有兴趣的话可以详细看下其中的第 4
     节 MESSAGE 部分，对于 DNS 请求和返回的数据包格式的描述。
 
