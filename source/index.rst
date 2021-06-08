@@ -17,6 +17,11 @@ Linux 命令指北
 
    find
 
+TODO
+----
+
+- rsync
+- socat
 
 .. * :ref:`索引（A-Z 排序） <genindex>`
 .. * :ref:`modindex`

@@ -120,3 +120,38 @@ type
 .. code-block:: bash
 
     $ dig linuxcmd.wiki @8.8.8.8
+
+通过 IP 反向解析域名
+--------------------
+
+不是所有的 IP 都能反向解析域名的，只有给域名添加了 PTR 记录才行。
+
+通过使用 ``-x addr`` 参数就能反向查询域名了，例如查询 Google DNS 8.8.8.8 对应的
+域名：
+
+.. code-block:: bash
+
+    $ dig +short -x 8.8.8.8
+    dns.google.
+
+所以 8.8.8.8 对应的域名就是 dns.google，我们再验证一下：
+
+.. code-block:: bash
+
+    $ dig +short dns.google
+    8.8.8.8
+    8.8.4.4
+
+dns.google 解析得到的两个地址确实是 8.8.8.8 和 8.8.4.4。
+    
+
+通过 DNS 查询自己的公网 IP
+--------------------------
+
+OpenDNS 的公共 DNS server (208.67.222.222 和 208.67.220.220）提供了一个特殊的服
+务，解析 myip.opendns.com 查询到的是自己的公网 IP：
+
+.. code-block:: bash
+
+    $ dig myip.opendns.com @208.67.222.222
+

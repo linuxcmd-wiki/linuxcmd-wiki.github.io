@@ -178,6 +178,31 @@ linuxcmd.wiki.          300     IN      A       172.67.201.88
 </pre></div>
 </div>
 </section>
+<section id="ip">
+<h2>通过 IP 反向解析域名<a class="headerlink" href="#ip" title="永久链接至标题">¶</a></h2>
+<p>不是所有的 IP 都能反向解析域名的，只有给域名添加了 PTR 记录才行。</p>
+<p>通过使用 <code class="docutils literal notranslate"><span class="pre">-x</span> <span class="pre">addr</span></code> 参数就能反向查询域名了，例如查询 Google DNS 8.8.8.8 对应的
+域名：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ dig +short -x <span class="m">8</span>.8.8.8
+dns.google.
+</pre></div>
+</div>
+<p>所以 8.8.8.8 对应的域名就是 dns.google，我们再验证一下：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ dig +short dns.google
+<span class="m">8</span>.8.8.8
+<span class="m">8</span>.8.4.4
+</pre></div>
+</div>
+<p>dns.google 解析得到的两个地址确实是 8.8.8.8 和 8.8.4.4。</p>
+</section>
+<section id="dns-ip">
+<h2>通过 DNS 查询自己的公网 IP<a class="headerlink" href="#dns-ip" title="永久链接至标题">¶</a></h2>
+<p>OpenDNS 的公共 DNS server (208.67.222.222 和 208.67.220.220）提供了一个特殊的服
+务，解析 myip.opendns.com 查询到的是自己的公网 IP：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ dig myip.opendns.com @208.67.222.222
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -196,6 +221,8 @@ linuxcmd.wiki.          300     IN      A       172.67.201.88
 <li><a class="reference internal" href="#id1">语法</a></li>
 <li><a class="reference internal" href="#id2">返回内容解读</a></li>
 <li><a class="reference internal" href="#nameserver">通过指定的 nameserver 解析域名</a></li>
+<li><a class="reference internal" href="#ip">通过 IP 反向解析域名</a></li>
+<li><a class="reference internal" href="#dns-ip">通过 DNS 查询自己的公网 IP</a></li>
 </ul>
 </li>
 </ul>
